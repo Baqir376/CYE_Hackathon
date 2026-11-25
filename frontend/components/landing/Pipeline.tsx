@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion, useInView, useMotionValueEvent, useScroll, useSpring } from "motion/react";
+import { AnimatePresence, motion, useInView, useMotionValueEvent, useScroll, useSpring, useReducedMotion } from "motion/react";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { EASE } from "../motion/primitives";
 import { Edge, Ribbon, Weave } from "../fx/Engrave";
@@ -19,13 +19,14 @@ export default function Pipeline() {
   const beam = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
   const [step, setStep] = useState(0);
   useMotionValueEvent(scrollYProgress, "change", (v) => setStep(Math.min(STEPS.length - 1, Math.max(0, Math.floor(v * STEPS.length)))));
+  const reduce = useReducedMotion();
   const [replay, setReplay] = useState(0);
   const seen = useInView(ref, { margin: "-20% 0px" });
   useEffect(() => {
-    if (!seen) return;
+    if (!seen || reduce) return;
     const t = setInterval(() => setReplay((r) => r + 1), 5200);
     return () => clearInterval(t);
-  }, [seen, step]);
+  }, [seen, step, reduce]);
 
   return (
     <section id="how" className="relative bg-butter text-ink overflow-clip">

@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ReactNode, useEffect, useState } from "react";
 import { cx } from "../ui";
 import { EASE, Reveal } from "../motion/primitives";
@@ -51,7 +51,8 @@ const FIGS = [
 ];
 function EvidenceDemo() {
   const [a, setA] = useState(0);
-  useEffect(() => { const t = setInterval(() => setA((x) => (x + 1) % 3), 2600); return () => clearInterval(t); }, []);
+  const reduce = useReducedMotion();
+  useEffect(() => { if (reduce) return; const t = setInterval(() => setA((x) => (x + 1) % 3), 2600); return () => clearInterval(t); }, [reduce]);
   return (
     <div className="relative grid sm:grid-cols-[1fr_1.1fr] gap-6 sm:gap-10 items-center">
       <div className="space-y-2">
@@ -90,7 +91,8 @@ const SENTS = [
 ];
 function GuardDemo() {
   const [n, setN] = useState(0);
-  useEffect(() => { const t = setInterval(() => setN((x) => (x + 1) % 4), 1300); return () => clearInterval(t); }, []);
+  const reduce = useReducedMotion();
+  useEffect(() => { if (reduce) return; const t = setInterval(() => setN((x) => (x + 1) % 4), 1300); return () => clearInterval(t); }, [reduce]);
   return (
     <div className="space-y-2.5">
       {SENTS.map((s, i) => (

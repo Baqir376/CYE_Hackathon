@@ -154,7 +154,11 @@ export default function LoupeHero({ delay }: { delay: number }) {
   const { r, c } = now, bad = !!r.off && !c;
   const mark = bad ? "#B82E54" : r.sum.length ? "#17684C" : "#1F3C88";
   const marked = [r, ...(c ? [] : (r.sum.map((id) => byId.get(id)).filter(Boolean) as R[]))];
-  const toggle = () => setPaused((p) => !p);
+  // pausing freezes the glass where it is, even in the middle of a move
+  const toggle = () => {
+    if (!paused) for (const [goal, at] of [[x, lx], [y, ly]] as const) { goal.stop(); goal.set(at.get()); at.jump(at.get()); }
+    setPaused(!paused);
+  };
 
   return (
     <section id="top" ref={root} className="relative -mt-16 bg-paper text-ink overflow-hidden">
