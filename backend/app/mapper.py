@@ -70,7 +70,8 @@ def map_rows(rows: list[dict], use_llm: bool = True) -> tuple[list[dict], dict]:
             info["llm_error"] = str(e)[:300]
     mapped = []
     agree = dispute = only_rule = only_ai = refused = 0
-    held = {c for c in rule.values() if c and TAXONOMY[c][2] == "one"}  # single-row totals the rules have found
+    # totals and cash-flow items the rules have found: the AI may not replace them or add to them (cash-flow rows carry signs)
+    held = {c for c in rule.values() if c and (TAXONOMY[c][2] == "one" or TAXONOMY[c][0] == "CF")}
     for r in rows:
         rc, ac = rule[r["id"]], ai.get(r["id"]) if info["llm_used"] else None
         if info["llm_used"]:
@@ -81,7 +82,7 @@ def map_rows(rows: list[dict], use_llm: bool = True) -> tuple[list[dict], dict]:
                 code, conf, src = rc, "disputed", "rules"  # never let the AI silently override the deterministic rule
                 dispute += 1
             elif ac and not rc and (ac in held or (r.get("is_subtotal") and TAXONOMY[ac][2] != "one")):
-                code, conf, src = None, None, None  # a rule already holds this total, or it would count a subtotal twice
+                code, conf, src = None, None, None  # a rule already holds this item, or it would count a subtotal twice
                 refused += 1
             elif ac and not rc:
                 code, conf, src = ac, "medium", "ai"

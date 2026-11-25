@@ -104,11 +104,20 @@ def test_ai_cannot_hand_a_total_to_an_unlabelled_subtotal(ai, analysed):
     assert _figures(rows, analysed)["CF.CFO"] == {"FY2026": -396_000_000, "FY2025": 346_500_000}
 
 
+def test_ai_cannot_add_borrowing_obtained_to_debt_repaid(ai, analysed):
+    """Also seen live: 'Long term financing obtained' was added to repayments."""
+    n = next(k for k, r in _numbered(analysed).items() if r["label"] == "Long term financing obtained")
+    ai(lambda b: Resp(200, json.dumps({n: "CF.DEBT_REPAID"})))
+    rows, _ = mapper.map_rows(analysed["rows"], True)
+    plain, _ = mapper.map_rows(analysed["rows"], False)
+    assert _figures(rows, analysed)["CF.DEBT_REPAID"] == _figures(plain, analysed)["CF.DEBT_REPAID"]
+
+
 def test_no_ai_answer_can_move_a_total_the_rules_found(ai, analysed):
     plain, _ = mapper.map_rows(analysed["rows"], False)
-    held = {r["code"] for r in plain if r["code"] and TAXONOMY[r["code"]][2] == "one"}
+    held = {r["code"] for r in plain if r["code"] and (TAXONOMY[r["code"]][2] == "one" or TAXONOMY[r["code"]][0] == "CF")}
     want = {c: v for c, v in _figures(plain, analysed).items() if c in held}
-    assert len(want) >= 10
+    assert len(want) >= 12 and {"CF.CAPEX", "CF.DEBT_REPAID", "CF.CFO"} <= set(want)
     rnd = random.Random(7)
     codes = {s: [c for c, v in TAXONOMY.items() if v[0] == s] for s in ("BS", "IS", "CF")}
     for _ in range(300):

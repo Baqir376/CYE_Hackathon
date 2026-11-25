@@ -2,7 +2,7 @@
 
 CredIQ turns a borrower's audited financial statements into a **verified spread, tie-out checks, ratios, bank-policy results and a draft credit memo**. Every figure in it can be clicked back to the exact cell on the source PDF page.
 
-> **Python handles the numbers; the AI writes the words.** Python reads every figure from the PDF text layer with its page coordinates. The language model only (a) classifies rows into the template, cross-checked against a rules engine whose answer wins until the analyst decides (the AI can never replace a total the rules have found), and (b) writes memo sentences with placeholders that Python fills in. A *number guard* then blocks any sentence whose figure, item name, year, sign, unit or direction doesn't match the source it cites.
+> **Python handles the numbers; the AI writes the words.** Python reads every figure from the PDF text layer with its page coordinates. The language model only (a) classifies rows into the template, cross-checked against a rules engine whose answer wins until the analyst decides (the AI can never replace a total, or change a cash-flow item, that the rules have found), and (b) writes memo sentences with placeholders that Python fills in. A *number guard* then blocks any sentence whose figure, item name, year, sign, unit or direction doesn't match the source it cites.
 
 Built for Capital Youth Expo Hackathon 04-HK (FinTech track).
 
