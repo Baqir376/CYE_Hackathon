@@ -1,0 +1,14 @@
+{
+  "name": "Sample Corporate Credit Policy",
+  "description": "Illustrative thresholds for demonstration. SBP does not prescribe one universal minimum ratio; every bank sets its own in its approved credit policy.",
+  "thresholds": {
+    "current_ratio":   {"min": 1.0,  "warn_min": 1.2},
+    "quick_ratio":     {"warn_min": 0.8},
+    "debt_to_equity":  {"max": 2.0,  "warn_max": 1.5},
+    "leverage":        {"max": 3.0,  "warn_max": 2.0},
+    "interest_cover":  {"min": 1.5,  "warn_min": 2.5},
+    "dscr":            {"min": 1.25, "warn_min": 1.5},
+    "net_margin":      {"min": 0.0,  "warn_min": 0.03},
+    "receivable_days": {"max": 150,  "warn_max": 90}
+  }
+}

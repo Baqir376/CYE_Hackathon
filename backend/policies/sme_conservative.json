@@ -1,0 +1,15 @@
+{
+  "name": "SME Lending Policy (Conservative)",
+  "description": "Tighter illustrative thresholds for SME / commercial borrowers.",
+  "thresholds": {
+    "current_ratio":   {"min": 1.2,  "warn_min": 1.5},
+    "quick_ratio":     {"min": 0.7,  "warn_min": 1.0},
+    "debt_to_equity":  {"max": 1.5,  "warn_max": 1.0},
+    "leverage":        {"max": 2.5,  "warn_max": 1.5},
+    "interest_cover":  {"min": 2.0,  "warn_min": 3.0},
+    "dscr":            {"min": 1.5,  "warn_min": 1.75},
+    "net_margin":      {"min": 0.02, "warn_min": 0.05},
+    "receivable_days": {"max": 120,  "warn_max": 75},
+    "inventory_days":  {"max": 150,  "warn_max": 100}
+  }
+}

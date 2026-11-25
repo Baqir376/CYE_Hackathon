@@ -1,0 +1,32 @@
+name: tests
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: backend } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt -r requirements-dev.txt
+      - run: python -m pytest -q --cov=app --cov-fail-under=80
+      - run: python -m bandit -q -r app
+      - run: python -m pip_audit -r requirements.txt
+  frontend:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: frontend } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "24" }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r ../backend/requirements.txt
+      - run: npm ci
+      - run: npm run lint && npm run typecheck && npm test
+      - run: npx playwright install --with-deps chrome firefox webkit
+      # screenshot baselines are per operating system, so the visual suite runs locally
+      - run: npx playwright test --grep-invert "home, top|guide|workspace overview|3D hero"
+        env: { PYTHON: python }
