@@ -69,7 +69,8 @@ def map_rows(rows: list[dict], use_llm: bool = True) -> tuple[list[dict], dict]:
         except Exception as e:  # degrade gracefully to rules only
             info["llm_error"] = str(e)[:300]
     mapped = []
-    agree = dispute = only_rule = only_ai = 0
+    agree = dispute = only_rule = only_ai = refused = 0
+    held = {c for c in rule.values() if c and TAXONOMY[c][2] == "one"}  # single-row totals the rules have found
     for r in rows:
         rc, ac = rule[r["id"]], ai.get(r["id"]) if info["llm_used"] else None
         if info["llm_used"]:
@@ -79,6 +80,9 @@ def map_rows(rows: list[dict], use_llm: bool = True) -> tuple[list[dict], dict]:
             elif rc and ac and rc != ac:
                 code, conf, src = rc, "disputed", "rules"  # never let the AI silently override the deterministic rule
                 dispute += 1
+            elif ac and not rc and (ac in held or (r.get("is_subtotal") and TAXONOMY[ac][2] != "one")):
+                code, conf, src = None, None, None  # a rule already holds this total, or it would count a subtotal twice
+                refused += 1
             elif ac and not rc:
                 code, conf, src = ac, "medium", "ai"
                 only_ai += 1
@@ -91,7 +95,7 @@ def map_rows(rows: list[dict], use_llm: bool = True) -> tuple[list[dict], dict]:
             code, conf, src = (rc, "medium", "rules") if rc else (None, None, None)
         mapped.append({**r, "code": code, "confidence": conf, "map_source": src,
                        "rule_code": rc, "ai_code": ac if info["llm_used"] else None})
-    info.update(agree=agree, disputed=dispute, rules_only=only_rule, ai_only=only_ai,
+    info.update(agree=agree, disputed=dispute, rules_only=only_rule, ai_only=only_ai, ai_refused=refused,
                 mapped=sum(1 for m in mapped if m["code"]), total=len(mapped))
     return mapped, info
 

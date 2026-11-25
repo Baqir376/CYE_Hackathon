@@ -22,6 +22,7 @@ MUTANTS = [
     ("parser.py", "return -v if neg else v", "return v"),
     ("parser.py", "if abs(best[1] - x1) <= 45", "if abs(best[1] - x1) <= 5"),
     ("mapper.py", "code, conf, src = rc, \"disputed\", \"rules\"", "code, conf, src = ac, \"disputed\", \"ai\""),
+    ("mapper.py", "ac in held or", "False or"),
     ("main.py", "if m.get(\"stale\"):", "if False:"),
     ("main.py", "if m[\"stats\"][\"unverified\"]:", "if False:"),
     ("main.py", "if c[\"status\"] == \"submitted\" and not allow_submitted:", "if False:"),

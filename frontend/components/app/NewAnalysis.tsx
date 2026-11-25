@@ -2,17 +2,20 @@
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import { api, CaseSummary, Meta } from "@/lib/api";
+import { useServer } from "@/lib/useServer";
 import { EASE } from "../motion/primitives";
 import { Magnetic } from "../motion/pointer";
 import { Glass } from "../fx/Glass";
 import { Banner, Ribbon } from "../fx/Engrave";
 import { Badge, cx, Spinner, STATUS_LABEL, statusTone } from "../ui";
 
+const start = () => Promise.all([api.meta(), api.health(), api.cases()]);
+type Start = Awaited<ReturnType<typeof start>>;
 const STEPS = [
   ["Upload", "One or more PDFs of audited financial statements."],
-  ["Watch", "Figures are read, checked and drafted. About 10 seconds for the sample."],
+  ["Watch", "Figures are read, checked and drafted. About 20 seconds for the sample."],
   ["Review", "Fix what was flagged, read the memo, submit it."],
 ];
 
@@ -21,7 +24,6 @@ export default function NewAnalysis() {
   const [meta, setMeta] = useState<Meta | null>(null);
   const [health, setHealth] = useState<{ llm: { configured: boolean; model: string } } | null>(null);
   const [recent, setRecent] = useState<CaseSummary[]>([]);
-  const [down, setDown] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const [borrower, setBorrower] = useState("");
   const [facility, setFacility] = useState("");
@@ -31,11 +33,8 @@ export default function NewAnalysis() {
   const [drag, setDrag] = useState(false);
   const input = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    api.meta().then(setMeta).catch(() => setDown(true));
-    api.health().then(setHealth).catch(() => setDown(true));
-    api.cases().then((c) => setRecent(c.slice(0, 3))).catch(() => {});
-  }, []);
+  const ready = useCallback(([m, h, c]: Start) => { setMeta(m); setHealth(h); setRecent(c.slice(0, 3)); }, []);
+  const waking = useServer(start, ready);
 
   function add(list: FileList | null) {
     if (!list) return;
@@ -71,7 +70,7 @@ export default function NewAnalysis() {
       </ol>
       </Banner>
 
-      {down && <p role="alert" className="mt-6 rounded-2xl bg-red-soft text-red px-5 py-4">The analysis server isn&apos;t responding. Start the backend, then reload this page.</p>}
+      {waking && <p role="status" className="mt-6 rounded-2xl bg-amber-soft text-amber px-5 py-4 flex items-center gap-3"><Spinner className="shrink-0" />The analysis server is waking up, which can take about a minute. This page connects by itself.</p>}
 
       <div className="mt-8 grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] gap-5">
         <div className="min-w-0"><Glass delay={0.12} className="p-6">

@@ -1,16 +1,16 @@
 "use client";
 import { motion } from "motion/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { api, CaseSummary } from "@/lib/api";
-import { Badge, STATUS_LABEL, statusTone } from "@/components/ui";
+import { useServer } from "@/lib/useServer";
+import { Badge, Spinner, STATUS_LABEL, statusTone } from "@/components/ui";
 import { Banner, Ribbon } from "@/components/fx/Engrave";
 import { EASE } from "@/components/motion/primitives";
 
 export default function CasesPage() {
   const [cases, setCases] = useState<CaseSummary[] | null>(null);
-  const [down, setDown] = useState(false);
-  useEffect(() => { api.cases().then(setCases).catch(() => { setCases([]); setDown(true); }); }, []);
+  const waking = useServer(api.cases, setCases);
   return (
     <div className="mx-auto max-w-[1200px] px-5 sm:px-6 pt-6 md:pt-9 pb-16">
       <Banner tint="#FDF1CF" className="px-7 sm:px-10 py-10"><div className="flex flex-wrap items-end justify-between gap-4">
@@ -22,8 +22,8 @@ export default function CasesPage() {
       </div></Banner>
       <div className="mt-10 space-y-3">
         {cases === null && Array.from({ length: 3 }).map((_, i) => <div key={i} className="h-24 rounded-2xl glass animate-pulse" />)}
-        {down && <p role="alert" className="rounded-[14px] bg-red-soft text-red px-5 py-4">The analysis server isn&apos;t responding. Start the backend, then reload this page.</p>}
-        {!down && cases?.length === 0 && <p className="text-muted">No cases yet. <Link href="/app" className="text-teal underline">Start one</Link>.</p>}
+        {waking && <p role="status" className="rounded-[14px] bg-amber-soft text-amber px-5 py-4 flex items-center gap-3"><Spinner className="shrink-0" />The analysis server is waking up, which can take about a minute. This page connects by itself.</p>}
+        {cases?.length === 0 && <p className="text-muted">No cases yet. <Link href="/app" className="text-teal underline">Start one</Link>.</p>}
         {cases?.map((c, i) => (
           <motion.div key={c.id} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i, 8) * 0.04, duration: 0.5, ease: EASE }}>
             <Link href={`/app/cases/${c.id}`}>

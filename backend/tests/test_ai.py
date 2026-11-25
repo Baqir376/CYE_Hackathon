@@ -1,11 +1,13 @@
 """AI tests: the model is replaced by one that misbehaves on purpose."""
 import json
+import random
 
 import httpx
 import pytest
 
-from app import llm, mapper
+from app import analysis, llm, mapper
 from app.memo import write_memo
+from app.taxonomy import TAXONOMY
 
 
 class Resp:
@@ -80,6 +82,42 @@ def test_ai_cannot_override_the_rules(ai, analysed):
     rows, _ = mapper.map_rows(analysed["rows"], True)
     debts = next(r for r in rows if r["label"] == "Trade debts")
     assert (debts["code"], debts["confidence"]) == ("BS.TRADE_RECEIVABLES", "disputed")
+
+
+def _figures(rows, case):
+    sp, _ = analysis.build_spread(rows, case["periods"], case["documents"][0]["unit"])
+    return {c: {p: v["value"] for p, v in it["values"].items()} for c, it in sp.items() if not any(v["derived"] for v in it["values"].values())}
+
+
+def _numbered(case):
+    """Row numbers exactly as the prompt shows them to the model."""
+    rows = [r for s in ("BS", "IS", "CF") for r in case["rows"] if r["statement"] == s]
+    return {str(i): r for i, r in enumerate(rows, 1)}
+
+
+def test_ai_cannot_hand_a_total_to_an_unlabelled_subtotal(ai, analysed):
+    """Seen live: the model called the first cash-flow subtotal 'CFO', and 722,000 replaced (396,000)."""
+    n = next(k for k, r in _numbered(analysed).items() if r["statement"] == "CF" and r["is_subtotal"])
+    ai(lambda b: Resp(200, json.dumps({n: "CF.CFO"})))
+    rows, info = mapper.map_rows(analysed["rows"], True)
+    assert info["llm_used"] and info["ai_refused"] == 1
+    assert _figures(rows, analysed)["CF.CFO"] == {"FY2026": -396_000_000, "FY2025": 346_500_000}
+
+
+def test_no_ai_answer_can_move_a_total_the_rules_found(ai, analysed):
+    plain, _ = mapper.map_rows(analysed["rows"], False)
+    held = {r["code"] for r in plain if r["code"] and TAXONOMY[r["code"]][2] == "one"}
+    want = {c: v for c, v in _figures(plain, analysed).items() if c in held}
+    assert len(want) >= 10
+    rnd = random.Random(7)
+    codes = {s: [c for c, v in TAXONOMY.items() if v[0] == s] for s in ("BS", "IS", "CF")}
+    for _ in range(300):
+        reply = {n: rnd.choice(codes[r["statement"]]) for n, r in _numbered(analysed).items() if rnd.random() < 0.8}
+        ai(lambda b, reply=reply: Resp(200, json.dumps(reply)))
+        rows, _ = mapper.map_rows(analysed["rows"], True)
+        got = _figures(rows, analysed)
+        assert {c: got.get(c) for c in want} == want
+        assert not [r["id"] for r in rows if r["is_subtotal"] and r["code"] and r["map_source"] == "ai" and TAXONOMY[r["code"]][2] == "sum"]
 
 
 @pytest.mark.parametrize("body", ["Net revenue was Rs 9,999 mn.", "Revenue doubled.", "Net revenue was {{f999}}.", "Profit rose 12%.", "Revenue hit nine billion.",

@@ -50,7 +50,7 @@ def build_spread(mapped_rows: list[dict], periods: list[str], unit: int) -> tupl
         if not rows:
             continue
         if agg == "one" and len(rows) > 1:
-            pick = sorted(rows, key=lambda x: (not x.get("verified_sum_of"), -abs(next(iter(x["values"].values()))["value"])))[0]
+            pick = sorted(rows, key=lambda x: (x.get("map_source") == "ai", not x.get("verified_sum_of"), -abs(next(iter(x["values"].values()))["value"])))[0]
             issues.append({"code": code, "rows": [x["id"] for x in rows], "kept": pick["id"]})
             rows = [pick]
         vals = {}

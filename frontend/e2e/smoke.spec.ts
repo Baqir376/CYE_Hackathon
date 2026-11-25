@@ -76,10 +76,15 @@ test("a case that does not exist shows a message, not a blank page", async ({ pa
   await expect(page.getByText(/not found/i).first()).toBeVisible();
 });
 
-test("when the server is down the app says so", async ({ page }) => {
-  await page.route("**/api/**", (r) => r.abort());
-  await page.goto("/app");
-  await expect(page.getByRole("alert").filter({ hasText: "isn't responding" })).toBeVisible();
-  await page.goto("/app/cases");
-  await expect(page.getByText(/isn't responding/)).toBeVisible();
+test("when the server is asleep the app says so and reconnects by itself", async ({ page }) => {
+  let asleep = true;
+  await page.route("**/api/**", (r) => (asleep ? r.abort() : r.continue()));
+  for (const [url, back] of [["/app", page.getByRole("button", { name: "Run the sample" })], ["/app/cases", page.getByRole("link", { name: /Sutlej|Start one/ }).first()]] as const) {
+    asleep = true;
+    await page.goto(url);
+    await expect(page.getByText(/waking up/)).toBeVisible();
+    asleep = false;
+    await expect(page.getByText(/waking up/)).toHaveCount(0);
+    await expect(back).toBeEnabled();
+  }
 });
