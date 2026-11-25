@@ -33,7 +33,7 @@ FILES = ["tests/test_guard.py", "tests/test_unit.py", "tests/test_golden.py", "t
 
 
 def main():
-    tmp = tempfile.mkdtemp(prefix="credence-mutants-")
+    tmp = tempfile.mkdtemp(prefix="crediq-mutants-")
     for d in ("app", "tests", "samples", "policies"):
         shutil.copytree(os.path.join(ROOT, d), os.path.join(tmp, d), ignore=shutil.ignore_patterns("__pycache__"))
     shutil.copy(os.path.join(ROOT, "pytest.ini"), tmp)

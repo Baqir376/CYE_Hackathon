@@ -54,7 +54,7 @@ export default function SpotIt() {
           <AnimatePresence>
             {won !== null && (
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mt-6 max-w-md">
-                <p className="text-[19px] leading-relaxed"><b>You took {secs} seconds{wrong.length ? `, with ${wrong.length} wrong ${wrong.length > 1 ? "guesses" : "guess"}` : ""}.</b> Credence reads this six-page file, extracts 120 figures and re-adds every total in about a tenth of a second.</p>
+                <p className="text-[19px] leading-relaxed"><b>You took {secs} seconds{wrong.length ? `, with ${wrong.length} wrong ${wrong.length > 1 ? "guesses" : "guess"}` : ""}.</b> CredIQ reads this six-page file, extracts 120 figures and re-adds every total in about a tenth of a second.</p>
                 <Link href="/app" className="inline-block mt-4 underline underline-offset-4 decoration-2 text-[18px] font-semibold">See it in the app</Link>
               </motion.div>
             )}

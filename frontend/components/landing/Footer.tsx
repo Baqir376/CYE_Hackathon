@@ -14,7 +14,7 @@ export function Scope() {
       <Edge from="#F4FAF2" />
       <div className="mx-auto max-w-[1280px] relative px-6 lg:pl-24 2xl:pl-6 pt-44 pb-28 grid md:grid-cols-[0.8fr_1.2fr] gap-10">
         <Reveal><h2 className="font-note text-[clamp(44px,5vw,76px)] leading-[0.95]">What it won&apos;t do.</h2>
-          <p className="mt-5 text-[18px] leading-relaxed max-w-sm">The credit decision stays with the bank&apos;s authorised officers. Credence makes their analysis faster to verify.</p></Reveal>
+          <p className="mt-5 text-[18px] leading-relaxed max-w-sm">The credit decision stays with the bank&apos;s authorised officers. CredIQ makes their analysis faster to verify.</p></Reveal>
         <div className="space-y-4">
           {items.map(([k, v], i) => (
             <Reveal key={k} delay={i * 0.1}>
@@ -38,7 +38,7 @@ export default function Footer() {
       <div className="mx-auto max-w-[1280px] relative px-6 lg:pl-24 2xl:pl-6 pt-44 pb-8">
         <div className="grid md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10 text-[16px]">
           <div>
-            <p className="font-note text-[40px] leading-none text-ink">Credence AI</p>
+            <p className="font-note text-[40px] leading-none text-ink">CredIQ</p>
             <p className="mt-3 text-ink-2 max-w-xs leading-relaxed">Evidence-driven corporate credit analysis for banks and institutional lenders in Pakistan.</p>
           </div>
           <FooterCol t="Product" l={[["Open the app", "/app"], ["Cases", "/app/cases"], ["User guide", "/app/guide"]]} />
@@ -47,12 +47,12 @@ export default function Footer() {
         </div>
         <div className="mt-16 flex flex-wrap justify-between gap-3 text-[14px] text-ink-2 border-t border-line pt-6">
           <span>Demo data is fictional. Policy thresholds are illustrative, not SBP requirements.</span>
-          <span>© 2026 Credence AI · hackathon prototype</span>
+          <span>© 2026 CredIQ · hackathon prototype</span>
         </div>
       </div>
       <motion.p initial={{ y: "40%", opacity: 0 }} whileInView={{ y: "0%", opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        aria-hidden className="font-note leading-[0.8] text-[23vw] text-center select-none text-green -mb-[3vw]">
-        Credence
+        aria-hidden className="font-note leading-[0.92] text-[29vw] text-center select-none text-green pb-[7vw]">
+        CredIQ
       </motion.p>
     </footer>
   );

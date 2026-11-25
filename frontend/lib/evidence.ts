@@ -56,7 +56,7 @@ export function spreadEvidence(c: Case, code: string, period: string): Evidence 
     return {
       key: `sp:${code}:${period}`,
       title: `${item.name} · ${period}`,
-      subtitle: "Derived figure: calculated by Credence, not printed in the statements",
+      subtitle: "Derived figure: calculated by CredIQ, not printed in the statements",
       formula: v.formula,
       lines: inputs.map((i) => ({ label: c.spread[i].name, value: fmtM(c.spread[i].values[period].value), onClickKey: `sp:${i}:${period}` })),
       targets: rowTargets(rows, period),

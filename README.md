@@ -1,6 +1,6 @@
-# Credence AI: evidence-driven corporate credit analysis
+# CredIQ: evidence-driven corporate credit analysis
 
-Credence AI turns a borrower's audited financial statements into a **verified spread, tie-out checks, ratios, bank-policy results and a draft credit memo**. Every figure in it can be clicked back to the exact cell on the source PDF page.
+CredIQ turns a borrower's audited financial statements into a **verified spread, tie-out checks, ratios, bank-policy results and a draft credit memo**. Every figure in it can be clicked back to the exact cell on the source PDF page.
 
 > **Python handles the numbers; the AI writes the words.** Python reads every figure from the PDF text layer with its page coordinates. The language model only (a) classifies rows into the template, cross-checked against a rules engine whose answer wins until the analyst decides, and (b) writes memo sentences with placeholders that Python fills in. A *number guard* then blocks any sentence whose figure, item name, year, sign, unit or direction doesn't match the source it cites.
 
@@ -99,4 +99,4 @@ The engine has also been tested on a real PSX-listed annual report (227 pages): 
 - Scanned (image-only) statement pages are detected and reported but not OCR'd in this version.
 - Policy thresholds are illustrative. SBP does not prescribe one universal minimum ratio; each bank configures its own policy (`backend/policies/*.json`).
 - No authentication in the hackathon build. Production would add SSO, role separation (analyst/approver) and bank-approved hosting.
-- Credence does not audit accounts, approve loans, or replace eCIB, Moody's or analyst judgement.
+- CredIQ does not audit accounts, approve loans, or replace eCIB, Moody's or analyst judgement.

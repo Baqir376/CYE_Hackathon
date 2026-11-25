@@ -14,8 +14,8 @@ export default function IntroLoader() {
   const [show, setShow] = useState(false);
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (sessionStorage.getItem("credence-intro") || params.has("nointro")) return;
-    sessionStorage.setItem("credence-intro", "1");
+    if (sessionStorage.getItem("crediq-intro") || params.has("nointro")) return;
+    sessionStorage.setItem("crediq-intro", "1");
     // eslint-disable-next-line react-hooks/set-state-in-effect -- one-off read of sessionStorage after mount
     setShow(true);
   }, []);
@@ -47,7 +47,7 @@ export default function IntroLoader() {
             </svg>
             <div className="overflow-hidden mt-6">
               <motion.p className="font-note text-ink text-6xl leading-none" initial={{ y: "110%" }} animate={{ y: 0 }}
-                transition={{ duration: 0.8, ease: EASE, delay: 0.55 }}>Credence</motion.p>
+                transition={{ duration: 0.8, ease: EASE, delay: 0.55 }}>CredIQ</motion.p>
             </div>
           </div>
         </motion.div>

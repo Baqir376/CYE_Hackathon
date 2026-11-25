@@ -7,7 +7,7 @@ import { Edge, Weave } from "../fx/Engrave";
 import StressLab from "../fx/StressLab";
 import { Reveal } from "../motion/primitives";
 
-const TEXT = "A credit analyst opens a 227-page report, finds the four pages that matter, retypes every figure and adds it all up by hand. Credence does that part. The judgement stays yours.";
+const TEXT = "A credit analyst opens a 227-page report, finds the four pages that matter, retypes every figure and adds it all up by hand. CredIQ does that part. The judgement stays yours.";
 
 function Word({ w, i, n, p }: { w: string; i: number; n: number; p: MotionValue<number> }) {
   const at = i / n;

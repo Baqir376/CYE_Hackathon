@@ -21,7 +21,7 @@ export function Rail() {
   return (
     <>
       <aside className="glass no-print hidden md:flex fixed left-3 top-3 bottom-3 w-[76px] z-40 flex-col items-center py-4 ">
-        <Link href="/" title="Back to the Credence website" className="rounded-xl p-1.5 hover:bg-paper transition-colors"><Logo size={32} /></Link>
+        <Link href="/" title="Back to the CredIQ website" className="rounded-xl p-1.5 hover:bg-paper transition-colors"><Logo size={32} /></Link>
         <nav className="mt-7 flex flex-col gap-1.5" aria-label="App">{ITEMS.map((x) => <Item key={x.href} {...x} path={path} id="rail" />)}</nav>
         <Strand className="flex-1 min-h-0 w-[44px] my-5" />
         <button onClick={openPalette} title="Search and jump (Ctrl K)" className="w-[64px] py-2 rounded-2xl flex flex-col items-center gap-1 text-[13px] text-ink-2 hover:bg-white/70 hover:text-ink transition-colors">{I("M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM16.5 16.5 21 21")}Search</button>

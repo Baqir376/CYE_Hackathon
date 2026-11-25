@@ -28,7 +28,7 @@ def fmt(v):
 def footer(c, page):
     c.setFont("Helvetica", 7)
     c.setFillGray(0.55)
-    c.drawString(60, 30, "FICTIONAL SAMPLE - generated demo data for Credence AI. Not a real company.")
+    c.drawString(60, 30, "FICTIONAL SAMPLE - generated demo data for CredIQ. Not a real company.")
     c.drawRightString(W - 60, 30, str(page))
     c.setFillGray(0)
 

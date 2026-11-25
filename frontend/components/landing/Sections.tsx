@@ -63,7 +63,7 @@ export function UseIt() {
         <Reveal><h2 className="font-note text-[clamp(46px,6.4vw,100px)] leading-[0.94] text-center">Three steps. <span className="text-magenta">That&apos;s it.</span></h2></Reveal>
         <div ref={ref} className="mt-14 [perspective:1400px]">
           <motion.div style={{ rotateX, scale, transformOrigin: "50% 100%" }} className="rounded-[20px] bg-white p-2.5 shadow-[0_60px_110px_-50px_rgba(43,26,61,0.8)]">
-            <Image src="/workspace-spiral.png" alt="The Credence workspace: next steps, key figures, risk signals and the source page with a highlighted cell" width={1440} height={900} className="rounded-[12px] w-full h-auto" />
+            <Image src="/workspace-spiral.png" alt="The CredIQ workspace: next steps, key figures, risk signals and the source page with a highlighted cell" width={1440} height={900} className="rounded-[12px] w-full h-auto" />
           </motion.div>
         </div>
         <ol className="mt-16 grid md:grid-cols-3 gap-8">

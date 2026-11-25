@@ -20,7 +20,7 @@ export default defineConfig({
       cwd: path.join(__dirname, "..", "backend"),
       url: `${API}/api/health`,
       env: { ...process.env, GROQ_API_KEY: "", LLM_API_KEY: "", SUPABASE_URL: "", SUPABASE_SERVICE_ROLE_KEY: "", CORS_ORIGINS: "http://localhost:3100",
-        DATA_DIR: path.join(os.tmpdir(), `credence-e2e-${Date.now()}`) } as Record<string, string>,
+        DATA_DIR: path.join(os.tmpdir(), `crediq-e2e-${Date.now()}`) } as Record<string, string>,
     },
     {
       command: "npx next build && npx next start -p 3100",

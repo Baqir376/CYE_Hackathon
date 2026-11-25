@@ -28,7 +28,7 @@ from .taxonomy import TAXONOMY  # noqa: E402
 SAMPLES_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "samples")
 MAX_MB = int(os.getenv("MAX_UPLOAD_MB", "40"))
 
-app = FastAPI(title="Credence AI API", version="1.0")
+app = FastAPI(title="CredIQ API", version="1.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in os.getenv("CORS_ORIGINS", "*").split(",")],

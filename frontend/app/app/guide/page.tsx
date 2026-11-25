@@ -14,13 +14,13 @@ const WORDS = [
   ["Tie-out", "A check that figures which should agree really do, such as assets = equity + liabilities."],
   ["Disputed", "The rules and the AI put a line in different places. The rules answer is used until you decide."],
   ["Watch / breach", "Close to, or outside, the limit in the credit policy you picked."],
-  ["Qualitative", "A memo sentence with no figure in it. Credence can't verify opinions, so read these yourself."],
+  ["Qualitative", "A memo sentence with no figure in it. CredIQ can't verify opinions, so read these yourself."],
 ];
 
 export default function Guide() {
   return (
     <div className="mx-auto max-w-[860px] px-5 sm:px-8 pt-6 md:pt-9 pb-16">
-      <Banner tint="#FFE7DF" className="px-7 sm:px-10 py-11"><h1 className="font-display text-[clamp(34px,4.4vw,52px)] leading-[1.05]">How to use Credence</h1></Banner>
+      <Banner tint="#FFE7DF" className="px-7 sm:px-10 py-11"><h1 className="font-display text-[clamp(34px,4.4vw,52px)] leading-[1.05]">How to use CredIQ</h1></Banner>
       <ol className="mt-8 glass px-7">
         {STEPS.map(([t, d], i) => (
           <li key={t} className="flex gap-5 py-5 border-t border-line first:border-0">

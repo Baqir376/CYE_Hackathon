@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { cx } from "../ui";
 
 export type Command = { id: string; label: string; hint?: string; run: () => void };
-const OPEN = "credence:palette", SET = "credence:commands";
+const OPEN = "crediq:palette", SET = "crediq:commands";
 let extra: Command[] = [];
 
 /** Pages add their own commands (the workspace adds tabs and every figure). */
@@ -40,7 +40,7 @@ export default function CommandPalette() {
   const list = useMemo(() => {
     const go = (p: string) => () => router.push(p);
     const all: Command[] = [...more, { id: "n", label: "New analysis", hint: "Page", run: go("/app") }, { id: "c", label: "Cases", hint: "Page", run: go("/app/cases") },
-      { id: "g", label: "Guide", hint: "Page", run: go("/app/guide") }, { id: "w", label: "Credence website", hint: "Page", run: go("/") }];
+      { id: "g", label: "Guide", hint: "Page", run: go("/app/guide") }, { id: "w", label: "CredIQ website", hint: "Page", run: go("/") }];
     const words = q.toLowerCase().split(/\s+/).filter(Boolean);
     return all.filter((c) => words.every((w) => `${c.label} ${c.hint || ""}`.toLowerCase().includes(w))).slice(0, 40);
   }, [q, more, router]);

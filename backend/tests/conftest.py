@@ -6,7 +6,7 @@ import time
 
 for k in ("GROQ_API_KEY", "LLM_API_KEY", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"):
     os.environ[k] = ""  # load_dotenv does not override variables that already exist
-os.environ["DATA_DIR"] = tempfile.mkdtemp(prefix="credence-test-")
+os.environ["DATA_DIR"] = tempfile.mkdtemp(prefix="crediq-test-")
 BACKEND = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BACKEND)
 

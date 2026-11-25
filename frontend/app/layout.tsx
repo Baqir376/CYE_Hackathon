@@ -8,7 +8,7 @@ const note = Rozha_One({ variable: "--font-note", subsets: ["latin"], weight: "4
 const mono = Spline_Sans_Mono({ variable: "--font-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Credence AI · Every number, traced to its source",
+  title: "CredIQ · Every number, traced to its source",
   description:
     "Evidence-driven corporate credit analysis: verified spreads, tie-out checks, bank-policy ratios and a number-guarded credit memo where every figure links back to its source page.",
 };

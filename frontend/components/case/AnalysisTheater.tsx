@@ -118,7 +118,7 @@ export default function AnalysisTheater({ c, complete }: { c: Case; complete: bo
               ))}
             </div>
             <div className="glass p-4 font-mono text-[12px] leading-relaxed h-[206px] overflow-hidden">
-              <p className="text-ink-2">$ credence analyse --case {c.id}</p>
+              <p className="text-ink-2">$ crediq analyse --case {c.id}</p>
               {trace.map((t, i) => (
                 <motion.div key={i} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} className="mt-1">
                   <span className={t.status === "running" ? "text-amber" : t.status === "error" ? "text-red" : t.status === "warn" ? "text-amber" : "text-blue"}>

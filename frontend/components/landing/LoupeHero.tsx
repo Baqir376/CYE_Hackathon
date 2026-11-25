@@ -174,7 +174,7 @@ export default function LoupeHero({ delay }: { delay: number }) {
             ))}
           </h1>
           <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: delay + 0.4, duration: 0.8, ease: EASE }} className="mt-7 max-w-[470px] text-[20px] leading-[1.5] text-ink-2 font-medium">
-            Slide the glass over the accounts. Underneath is what Credence sees: every figure, where it sits, what it means, and whether it adds up.
+            Slide the glass over the accounts. Underneath is what CredIQ sees: every figure, where it sits, what it means, and whether it adds up.
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: delay + 0.55, duration: 0.8, ease: EASE }} className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Magnetic><Link href="/app" className="note-btn bg-mustard text-ink">Open the app</Link></Magnetic>
@@ -206,7 +206,7 @@ export default function LoupeHero({ delay }: { delay: number }) {
               <span className="absolute inset-[4%] translate-x-[9%] translate-y-[16%] rounded-full bg-[radial-gradient(circle,rgba(43,26,61,0.34)_40%,rgba(43,26,61,0.12)_62%,transparent_72%)]" />
               <span className="absolute inset-[18%] translate-x-[30%] translate-y-[46%] rounded-full bg-[radial-gradient(circle,rgba(255,236,170,0.75),transparent_62%)]" />
               <span className="absolute inset-0 rounded-full overflow-hidden bg-white">
-                {/* bent page at the rim, what Credence sees in the middle */}
+                {/* bent page at the rim, what CredIQ sees in the middle */}
                 <motion.span style={{ x: ex, y: ey, width: PW * k * EDGE, height: PH * k * EDGE }} className="absolute left-0 top-0 block"><Image src="/ledger/p3.png" alt="" width={1310} height={1853} className="block w-full h-full" sizes="620px" draggable={false} /></motion.span>
                 <span className="absolute inset-0 [mask-image:radial-gradient(circle_closest-side,black_86%,transparent_97%)]"><motion.span style={{ x: ix, y: iy }} className="absolute left-0 top-0 block"><XRay zoom={ZOOM} /></motion.span></span>
                 <span className="absolute inset-0 rounded-full bg-[radial-gradient(circle_closest-side,transparent_76%,rgba(31,60,136,0.10)_84%,rgba(31,60,136,0.26)_92%,rgba(184,46,84,0.34)_96%,rgba(217,152,43,0.55)_100%)]" />

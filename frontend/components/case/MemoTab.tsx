@@ -83,7 +83,7 @@ export default function MemoTab() {
             <div><p className="text-muted">Facility requested</p><p className="font-medium">{c.facility || "Not specified"}</p></div>
             <div><p className="text-muted">Periods analysed</p><p className="font-medium num">{c.periods.join(", ")}</p></div>
             <div><p className="text-muted">Policy</p><p className="font-medium">{c.policy_name}</p></div>
-            <div><p className="text-muted">Prepared by</p><p className="font-medium">{c.analyst} · Credence AI</p></div>
+            <div><p className="text-muted">Prepared by</p><p className="font-medium">{c.analyst} · CredIQ</p></div>
           </div>
         </div>
 
@@ -155,7 +155,7 @@ export default function MemoTab() {
 
         <section className="rounded-lg border-2 border-dashed border-line p-4">
           <h3 className="font-serif text-lg font-semibold">Analyst recommendation</h3>
-          <p className="text-sm text-muted mt-1">To be completed by the credit analyst. Credence AI does not recommend approval or decline; the credit decision stays with the bank&apos;s authorised officers.</p>
+          <p className="text-sm text-muted mt-1">To be completed by the credit analyst. CredIQ does not recommend approval or decline; the credit decision stays with the bank&apos;s authorised officers.</p>
         </section>
       </Card>
     </div>

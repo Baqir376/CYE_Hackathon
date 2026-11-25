@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { AppBackdrop, Rail } from "@/components/app/AppShell";
 import CommandPalette from "@/components/fx/CommandPalette";
 
-export const metadata: Metadata = { title: "Credence AI workspace" };
+export const metadata: Metadata = { title: "CredIQ workspace" };
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (

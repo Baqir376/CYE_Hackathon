@@ -26,7 +26,7 @@ export default function HowItWorks() {
       <p className="text-[17px] text-magenta font-semibold">How it works</p>
       <h1 className="font-note text-[clamp(50px,6.4vw,92px)] leading-[0.95] mt-2">Python handles the numbers.</h1>
       <p className="mt-6 text-ink-2 text-[20px] leading-relaxed">
-        Generic AI tools summarise financial statements; Credence does credit work. Python reads, verifies and calculates every figure. The language model classifies rows and writes prose, and every figure in that prose is checked against the source it cites.
+        Generic AI tools summarise financial statements; CredIQ does credit work. Python reads, verifies and calculates every figure. The language model classifies rows and writes prose, and every figure in that prose is checked against the source it cites.
       </p>
       <ol className="mt-10 space-y-4">
         {STEPS.map(([t, d, tag], i) => (
@@ -42,7 +42,7 @@ export default function HowItWorks() {
       </ol>
       <div className="mt-10 glass p-6 text-[17px] text-ink-2 leading-relaxed">
         <p className="font-semibold text-magenta">Scope</p>
-        Credence analyses financial statements that have already been prepared or audited. It does not audit or certify accounts,
+        CredIQ analyses financial statements that have already been prepared or audited. It does not audit or certify accounts,
         approve loans, or replace eCIB reports, Moody&apos;s, or the analyst&apos;s judgement. Policy thresholds shown are illustrative:
         SBP does not prescribe one universal minimum ratio, so each bank configures its own.
       </div>

@@ -25,7 +25,7 @@ export default function NavBar() {
           "max-w-[1100px] h-12 rounded-full bg-white/85 backdrop-blur-xl border border-white shadow-[0_14px_34px_-18px_rgba(43,26,61,0.55)]")}>
         <Link href="/" className="flex items-center gap-2">
           <Logo />
-          <span className={cx("font-display text-[21px] tracking-tight whitespace-nowrap", "text-ink")}>Credence <span className={"text-magenta"}>AI</span></span>
+          <span className={cx("font-display text-[21px] tracking-tight whitespace-nowrap", "text-ink")}>Cred<span className={"text-magenta"}>IQ</span></span>
         </Link>
         <nav className="flex items-center gap-1 text-[16px] font-medium">
           {links.map(([href, l]) => {

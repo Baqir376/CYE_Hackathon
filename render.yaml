@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: credence-ai-api
+    name: crediq-api
     runtime: python
     rootDir: backend
     buildCommand: pip install -r requirements.txt

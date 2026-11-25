@@ -1,4 +1,4 @@
--- Credence AI — Supabase schema. Run in the Supabase SQL editor.
+-- CredIQ — Supabase schema. Run in the Supabase SQL editor.
 create table if not exists public.cases (
   id          text primary key,
   borrower    text,
