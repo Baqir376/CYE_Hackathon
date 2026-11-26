@@ -30,7 +30,8 @@ test("a figure opens its page with the exact cell highlighted", async ({ page })
   await expect(img).toBeVisible();
   const box = page.locator(".hl-box").first();
   await expect(box).toBeVisible();
-  const [i, b] = [await img.boundingBox(), await box.boundingBox()];
+  // read both rectangles in one go: the pane is still smooth-scrolling to the cell
+  const [i, b] = await page.evaluate(() => [document.querySelector("img[alt=\"Source page 5\"]")!, document.querySelector(".hl-box")!].map((e) => { const r = e.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height }; }));
   // the cell is at (0.6577..0.7224, 0.4138..0.4286) of the page
   expect((b!.x + b!.width / 2 - i!.x) / i!.width).toBeCloseTo(0.69, 1);
   expect((b!.y + b!.height / 2 - i!.y) / i!.height).toBeCloseTo(0.421, 1);
@@ -53,4 +54,22 @@ test("switching browser tabs and reloading keeps the case", async ({ page }) => 
   await page.goto("/app/cases");
   await page.getByRole("link", { name: /Sutlej Demo Textiles/ }).first().click();
   await expect(steps(page)).toBeVisible();
+});
+
+test("a fresh sample lands on the template with the document beside it, and a highlight opens the focus view", async ({ page, isMobile }) => {
+  test.skip(isMobile, "the document pane sits beside the template on wide screens");
+  await page.goto("/app");
+  await page.getByRole("button", { name: "Run the sample" }).click();
+  await expect(page.getByRole("button", { name: /^Spread$/ })).toHaveClass(/text-white/, { timeout: 40_000 });
+  await expect(page.getByText("Source document")).toBeVisible();
+  await page.getByRole("row").filter({ hasText: "Trade receivables" }).locator(".evi").first().click();
+  await expect(page.getByRole("button", { name: /180%/ })).toBeVisible();
+  await page.getByRole("button", { name: "Inspect highlight" }).click();
+  const dlg = page.getByRole("dialog", { name: /^Focus view/ });
+  await expect(dlg).toBeVisible();
+  await expect(dlg.getByAltText("Focused view of page 3")).toBeVisible();
+  await page.keyboard.press("ArrowRight");
+  await expect(dlg.getByAltText("Focused view of page 4")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(dlg).toHaveCount(0);
 });

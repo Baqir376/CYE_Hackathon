@@ -90,8 +90,9 @@ test("the source page has a magnifier", async ({ page }) => {
   const img = page.getByAltText("Source page 5");
   await expect(img).toBeVisible();
   await page.waitForTimeout(1500);
-  const b = (await img.boundingBox())!;
-  await page.mouse.move(b.x + b.width * 0.6, b.y + 120, { steps: 5 });
+  // the pane opens zoomed on the cell, so hover next to the highlight
+  const b = (await page.locator(".hl-box").first().boundingBox())!;
+  await page.mouse.move(b.x - 40, b.y + b.height / 2, { steps: 5 });
   await expect(page.locator("[data-lens]")).toBeVisible();
 });
 

@@ -23,7 +23,7 @@ describe("formatting", () => {
 describe("evidence", () => {
   it("points a figure at its exact cell", () => {
     const e = spreadEvidence(base, "BS.TRADE_RECEIVABLES", "FY2026")!;
-    expect(e.targets).toEqual([{ doc_id: "d", page: 3, boxes: [{ bbox: [0, 2, 1, 4], kind: "label" }, { bbox: [1, 2, 3, 4], kind: "value", text: "1,420,000" }] }]);
+    expect(e.targets).toEqual([{ doc_id: "d", page: 3, boxes: [{ bbox: [0, 2, 1, 4], kind: "label" }, { bbox: [1, 2, 3, 4], kind: "value", text: "1,420,000", label: "Trade debts" }] }]);
   });
   it("returns nothing for unknown facts instead of crashing", () => {
     for (const f of ["F:NOPE:FY2026", "R:nope:FY2026", "S:NOPE:FY2026", "", "x"]) expect(factEvidence(base, f)).toBeNull();

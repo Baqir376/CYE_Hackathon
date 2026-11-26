@@ -1,6 +1,6 @@
 import { Case, Row, rawThousands } from "./api";
 
-export type Box = { bbox: number[]; kind: "value" | "label" | "flag"; text?: string };
+export type Box = { bbox: number[]; kind: "value" | "label" | "flag"; text?: string; label?: string };
 export type Target = { doc_id: string; page: number; boxes: Box[]; caption?: string };
 export type Evidence = {
   key: string;
@@ -25,7 +25,7 @@ export function rowTargets(rows: Row[], period?: string): Target[] {
     const ps = period ? [period] : Object.keys(r.values);
     for (const p of ps) {
       const cell = r.values[p];
-      if (cell) t.boxes.push({ bbox: cell.bbox, kind: "value", text: cell.raw });
+      if (cell) t.boxes.push({ bbox: cell.bbox, kind: "value", text: cell.raw, label: [r.label, ps.length > 1 ? p : ""].filter(Boolean).join(" · ") });
     }
   }
   return [...map.values()];

@@ -37,10 +37,10 @@ export default function CaseWorkspace() {
   const [meta, setMeta] = useState<Meta | null>(null);
   const [llm, setLlm] = useState(false);
   const [err, setErr] = useState<string | null>(null);
-  const [tab, setTabRaw] = useState<string>("overview");
+  const [tab, setTabRaw] = useState<string>("spread"); // the template on the left, the document on the right
   const [review, setReview] = useState(false);
   const [dir, setDir] = useState(1);
-  const [seen, setSeen] = useState<Set<string>>(new Set());
+  const [seen, setSeen] = useState<Set<string>>(new Set(["spread"]));
   const [working, setWorking] = useState(false);
   const setTab = useCallback((k: string) => {
     setReview(k === "review");

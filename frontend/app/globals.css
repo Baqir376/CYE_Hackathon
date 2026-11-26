@@ -144,3 +144,12 @@ body {
 .knob::-moz-range-thumb { height: 20px; width: 20px; border-radius: 50%; border: 3px solid #fff8e7; background: #e9b44c; box-shadow: 0 6px 12px -3px rgba(43, 26, 61, 0.6); }
 .knob:hover::-webkit-slider-thumb { transform: scale(1.18); }
 .knob:active::-webkit-slider-thumb { transform: scale(0.94); }
+
+/* focus view: marching ants round the active highlight, and clickable highlights in the panel */
+@keyframes ants { to { stroke-dashoffset: -24; } }
+.ants { animation: ants 0.9s linear infinite; }
+.hl-click { transition: box-shadow 160ms, background 160ms; }
+.hl-click:hover, .hl-click:focus-visible { box-shadow: 0 0 0 4px rgba(244, 211, 94, 0.55), 0 8px 18px -6px rgba(43, 26, 61, 0.6); outline: none; }
+@keyframes pin-bob { 50% { transform: translateY(-2px); } }
+.inspect-pin { animation: pin-bob 1.2s ease-in-out 3; }
+@media (prefers-reduced-motion: reduce) { .ants, .inspect-pin { animation: none; } }
